@@ -1,41 +1,28 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { 
-  CheckCircle2, Play, MessageCircle, Gamepad2, FileText, 
-  Zap, Star, ShieldCheck, AlertTriangle, ChevronDown, 
-  ChevronUp, Smartphone, MonitorPlay, Users, Check, Lock, Gift, ArrowRight
-} from 'lucide-react';
+import { Check, Shield, FileText, Calendar, LayoutTemplate } from 'lucide-react';
 
 const CTAButton = ({ children, className = '', href = '#' }: { children: React.ReactNode, className?: string, href?: string }) => (
   <motion.a
     href={href}
     whileHover={{ scale: 1.02 }}
     whileTap={{ scale: 0.98 }}
-    className={`inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-lg md:text-xl py-4 px-8 rounded-full shadow-lg hover:shadow-xl transition-all ${className}`}
+    className={`inline-flex items-center justify-center font-sans font-semibold text-[16px] h-[56px] px-8 rounded-full transition-colors ${className}`}
   >
     {children}
-    <ArrowRight className="w-6 h-6" />
   </motion.a>
-);
-
-const Section = ({ children, className = '', id = '' }: { children: React.ReactNode, className?: string, id?: string }) => (
-  <section id={id} className={`py-16 md:py-24 px-4 ${className}`}>
-    <div className="max-w-5xl mx-auto">
-      {children}
-    </div>
-  </section>
 );
 
 const FAQItem = ({ question, answer }: { question: string, answer: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="border border-slate-200 rounded-xl mb-4 overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow">
+    <div className="border-b border-[#E0DDD8]">
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-5 text-left font-semibold text-slate-800 hover:bg-slate-50 transition-colors"
+        className="w-full flex items-center justify-between py-[20px] text-left font-sans font-semibold text-[15px] text-primary hover:text-accent transition-colors"
       >
         <span className="pr-4">{question}</span>
-        {isOpen ? <ChevronUp className="w-5 h-5 text-emerald-500 shrink-0" /> : <ChevronDown className="w-5 h-5 text-slate-400 shrink-0" />}
+        <span className="text-2xl font-serif font-light leading-none">{isOpen ? '−' : '+'}</span>
       </button>
       <AnimatePresence>
         {isOpen && (
@@ -43,9 +30,11 @@ const FAQItem = ({ question, answer }: { question: string, answer: string }) => 
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="px-5 pb-5 text-slate-600"
+            className="overflow-hidden"
           >
-            {answer}
+            <p className="pb-[20px] text-[14px] text-muted leading-[1.75]">
+              {answer}
+            </p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -55,450 +44,494 @@ const FAQItem = ({ question, answer }: { question: string, answer: string }) => 
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-800 selection:bg-emerald-200">
-      {/* Top Banner */}
-      <div className="bg-red-600 text-white text-center py-2 px-4 text-sm font-medium tracking-wide">
-        DESCONTO ESPECIAL VOLTA ÀS AULAS - EXPIRA 13/03, Sexta-Feira
+    <div className="min-h-screen bg-bg font-sans text-primary selection:bg-surface-green selection:text-primary">
+      
+      {/* Top Announcement Bar */}
+      <div className="bg-black text-white text-center py-2 px-4 font-sans text-[11px] tracking-[0.08em] uppercase">
+        DESCONTO ESPECIAL VOLTA ÀS AULAS - EXPIRA <span className="text-gold">SEXTA-FEIRA</span>
       </div>
+
+      {/* Navigation Bar */}
+      <nav className="sticky top-0 z-50 bg-bg/90 backdrop-blur-md border-b border-primary/5">
+        <div className="max-w-[1000px] mx-auto px-[28px] h-[72px] flex items-center justify-between">
+          <div className="font-serif italic text-[24px] font-bold text-primary">
+            Dinâmicas Inclusivas
+          </div>
+          <a href="#planos" className="bg-accent text-white font-sans font-semibold text-[13px] px-6 py-2.5 rounded-full hover:bg-[#B84521] transition-colors">
+            Garantir Vaga
+          </a>
+        </div>
+      </nav>
 
       {/* Hero Section */}
-      <Section className="bg-white text-center pt-12 pb-20 relative overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-64 bg-blue-50 rounded-full blur-3xl opacity-50 -z-10"></div>
+      <section className="bg-primary text-white pt-[80px] pb-[96px] px-[28px] relative overflow-hidden">
+        {/* Decorative Elements */}
+        <div className="absolute -top-24 -right-24 w-[500px] h-[500px] rounded-full border border-white/5"></div>
+        <div className="absolute -top-4 -right-4 w-[350px] h-[350px] rounded-full border border-white/5"></div>
+        <div className="absolute top-16 right-16 w-[200px] h-[200px] rounded-full border border-white/5"></div>
         
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="inline-flex items-center gap-2 bg-orange-100 text-orange-600 px-4 py-1.5 rounded-full text-sm font-semibold mb-6"
-        >
-          <Zap className="w-4 h-4" />
-          Desconto por POUCO tempo!
-        </motion.div>
-        
-        <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight mb-6"
-        >
-          <span className="text-blue-600">+200 Dinâmicas de Matemática</span><br/>
-          Prontas para aumentar o engajamento das suas aulas
-        </motion.h1>
-
-        <motion.p 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="text-lg text-slate-600 mb-8 flex items-center justify-center gap-2 font-medium"
-        >
-          <Play className="w-5 h-5 text-orange-500 fill-current" />
-          Assista o vídeo abaixo
-        </motion.p>
-
-        {/* Video Placeholder */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.3 }}
-          className="relative max-w-3xl mx-auto aspect-video bg-slate-900 rounded-2xl shadow-2xl overflow-hidden mb-10 group cursor-pointer border-4 border-slate-100"
-        >
-          <img 
-            src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=1200" 
-            alt="Video Thumbnail" 
-            className="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-500"
-          />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-              <Play className="w-10 h-10 text-white ml-2 fill-current" />
-            </div>
-          </div>
-        </motion.div>
-
-        <div className="flex flex-wrap justify-center gap-4 mb-10">
-          {['Ensino Fundamental I', 'Ensino Fundamental II', 'Ensino Médio'].map((badge, i) => (
-            <motion.div 
-              key={badge}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 + (i * 0.1) }}
-              className="flex items-center gap-2 bg-emerald-50 text-emerald-700 px-5 py-2.5 rounded-full font-semibold border border-emerald-100 shadow-sm"
-            >
-              <CheckCircle2 className="w-5 h-5" />
-              {badge}
-            </motion.div>
+        <div className="absolute top-12 left-12 grid grid-cols-6 gap-3 opacity-12">
+          {Array.from({ length: 24 }).map((_, i) => (
+            <div key={i} className="w-[3px] h-[3px] bg-white rounded-full"></div>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
-        >
-          <CTAButton className="w-full md:w-auto px-10 py-5 text-xl">
-            EU QUERO MINHAS DINÂMICAS PRONTAS!
-          </CTAButton>
-        </motion.div>
-      </Section>
-
-      {/* What you will receive */}
-      <Section className="bg-slate-50 text-center">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-12">
-          O QUE VOCÊ VAI <span className="text-emerald-500">RECEBER?</span>
-        </h2>
-        
-        <div className="max-w-2xl mx-auto bg-white p-8 md:p-12 rounded-3xl shadow-xl border border-slate-100 relative">
-          <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 rotate-3">
-            <FileText className="w-8 h-8" />
-          </div>
-          <h3 className="text-2xl font-bold text-slate-900 mb-4">+200 Dinâmicas de Matemática</h3>
-          <p className="text-slate-600 text-lg leading-relaxed">
-            <strong>Atividades dinâmicas</strong> que transformam <strong>conteúdos de matemática</strong> em aulas mais participativas, leves e fáceis de aplicar, desde o primeiro dia de aula.
-          </p>
-          
-          {/* Decorative elements */}
-          <div className="absolute -top-4 -left-4 w-8 h-8 bg-orange-400 rounded-full opacity-20 blur-sm"></div>
-          <div className="absolute -bottom-6 -right-6 w-12 h-12 bg-emerald-400 rounded-full opacity-20 blur-md"></div>
-        </div>
-      </Section>
-
-      {/* How you will receive */}
-      <Section className="bg-white text-center">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-16">
-          COMO VOU RECEBER O <span className="text-emerald-500">MATERIAL?</span>
-        </h2>
-        
-        <div className="grid md:grid-cols-3 gap-10 max-w-4xl mx-auto relative">
-          {/* Connecting line for desktop */}
-          <div className="hidden md:block absolute top-12 left-[15%] right-[15%] h-0.5 bg-slate-100 -z-10"></div>
-          
-          {[
-            { icon: MessageCircle, title: 'Chega no seu WhatsApp', desc: 'Após a compra, você recebe o acesso imediato direto no WhatsApp.', color: 'text-emerald-500', bg: 'bg-emerald-100' },
-            { icon: MonitorPlay, title: 'Você assiste', desc: 'Você assiste, entende a lógica da dinâmica e como tudo funciona.', color: 'text-blue-500', bg: 'bg-blue-100' },
-            { icon: Users, title: 'Leva para sua sala', desc: 'Aplica exatamente o mesmo método na sua sala e coloca em prática.', color: 'text-orange-500', bg: 'bg-orange-100' }
-          ].map((step, i) => (
-            <motion.div 
-              key={step.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.2 }}
-              className="flex flex-col items-center"
-            >
-              <div className={`w-24 h-24 ${step.bg} ${step.color} rounded-full flex items-center justify-center mb-6 shadow-md border-4 border-white`}>
-                <step.icon className="w-10 h-10" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">{step.title}</h3>
-              <p className="text-slate-600">{step.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </Section>
-
-      {/* Bonuses */}
-      <Section className="bg-slate-50 text-center">
-        <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-600 px-4 py-1.5 rounded-full text-sm font-bold mb-6 uppercase tracking-wider">
-          <Gift className="w-4 h-4" />
-          Exclusivo
-        </div>
-        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-12">
-          Ao comprar hoje você recebe <span className="text-blue-600">2 bônus exclusivos!</span>
-        </h2>
-        
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {[
-            { num: 1, icon: Gamepad2, title: 'COMBO JOGOS LÚDICOS!', oldPrice: 'R$59,90' },
-            { num: 2, icon: FileText, title: '50 APOSTILAS DE EXERCÍCIOS COM GABARITO!', oldPrice: 'R$49,90' }
-          ].map((bonus, i) => (
-            <motion.div 
-              key={bonus.title}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.2 }}
-              className="bg-white p-8 rounded-3xl shadow-lg border border-slate-100 relative overflow-hidden group hover:shadow-xl transition-shadow"
-            >
-              <div className="absolute top-0 left-0 bg-blue-600 text-white text-xs font-bold px-4 py-1.5 rounded-br-xl">
-                BÔNUS #{bonus.num}
-              </div>
-              <div className="w-20 h-20 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 mt-4 group-hover:scale-110 transition-transform">
-                <bonus.icon className="w-10 h-10" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4 min-h-[56px] flex items-center justify-center">{bonus.title}</h3>
-              <div className="flex items-center justify-center gap-2 text-lg">
-                <span className="text-slate-400 line-through text-sm">De: {bonus.oldPrice}</span>
-                <span className="font-bold text-emerald-500">Por: Grátis</span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </Section>
-
-      {/* WhatsApp Banner */}
-      <div className="bg-emerald-500 py-12 px-4 text-center text-white">
-        <div className="max-w-4xl mx-auto flex flex-col items-center">
-          <div className="flex items-center gap-4 mb-4">
-            <MessageCircle className="w-10 h-10" />
-            <Zap className="w-8 h-8 fill-current" />
-          </div>
-          <h2 className="text-2xl md:text-3xl font-bold mb-2">
-            Após a compra, você recebe IMEDIATAMENTE no WhatsApp!
-          </h2>
-          <p className="text-emerald-100 text-lg">
-            Acesso instantâneo a todo o material para você começar agora mesmo.
-          </p>
-        </div>
-      </div>
-
-      {/* Pricing */}
-      <Section className="bg-white text-center">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-12">
-          Escolha Seu <span className="text-emerald-500">Plano</span>
-        </h2>
-        
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto items-end">
-          {/* Basic Plan */}
+        <div className="max-w-[580px] mx-auto text-center flex flex-col items-center relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8 relative"
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center border border-white/20 bg-white/5 px-4 py-1.5 rounded-full font-sans text-[11px] font-semibold tracking-[0.1em] uppercase mb-8"
           >
-            <div className="mb-8">
-              <h3 className="text-xl font-bold text-slate-900 mb-2">PLANO BÁSICO</h3>
-              <div className="w-16 h-1 bg-slate-200 mx-auto rounded-full"></div>
-            </div>
-            
-            <ul className="space-y-4 text-left mb-8">
-              {[
-                '200 DINÂMICAS CRIATIVAS DE MATEMÁTICA!',
-                '10 DINÂMICAS COM PASSO A PASSO EM VÍDEO!',
-                'RECEBIMENTO IMEDIATO PELO WHATSAPP',
-                'Suporte via WhatsApp'
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-slate-600 text-sm">
-                  <Check className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-            
-            <div className="mb-8">
-              <p className="text-slate-400 text-sm line-through mb-1">De R$47,90 por apenas</p>
-              <p className="text-4xl font-extrabold text-emerald-500">R$17,90</p>
-            </div>
-            
-            <CTAButton className="w-full text-base py-3">
-              CONFIRMAR Plano Essencial
-            </CTAButton>
-            <p className="text-xs text-slate-400 mt-4 flex items-center justify-center gap-1">
-              <Lock className="w-3 h-3" /> Pagamento 100% seguro â Acesso imediato
-            </p>
+            ✦ Kit Digital para Educadoras
           </motion.div>
-
-          {/* Premium Plan */}
-          <motion.div 
+          
+          <motion.h1 
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="font-serif text-[58px] md:text-[72px] font-bold leading-[1.05] tracking-[-0.02em] mb-6"
+          >
+            +200 Dinâmicas para <br/>
+            <span className="italic text-light-green font-normal">Inclusão na Sala de Aula</span>
+          </motion.h1>
+          
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="bg-emerald-50 rounded-3xl shadow-2xl border-2 border-emerald-400 p-8 relative transform md:-translate-y-4"
+            className="font-sans text-[15px] text-white/70 mb-8 leading-[1.75]"
           >
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-emerald-500 text-white text-xs font-bold px-4 py-1.5 rounded-full flex items-center gap-1 shadow-md">
-              <Star className="w-3 h-3 fill-current" /> MAIS POPULAR <Star className="w-3 h-3 fill-current" />
-            </div>
-            
-            <div className="mb-8 mt-2">
-              <h3 className="text-2xl font-bold text-slate-900 mb-2">PLANEJAMENTO DIVERTIDO 2026</h3>
-              <div className="w-16 h-1 bg-emerald-300 mx-auto rounded-full"></div>
-            </div>
-            
-            <ul className="space-y-4 text-left mb-8">
-              {[
-                '200 DINÂMICAS CRIATIVAS DE MATEMÁTICA!',
-                '200 DINÂMICAS COM PASSO A PASSO EM VÍDEO!',
-                'PLANEJAMENTO ANUAL COMPLETO SEGUNDO A BNCC!',
-                'DINÂMICAS SEPARADAS POR ANO E ASSUNTO!',
-                '30 DINÂMICAS DE REFORÇO!',
-                '(BÔNUS) COMBO JOGOS LÚDICOS!',
-                '(BÔNUS) 50 APOSTILAS DE EXERCÍCIOS COM GABARITO!'
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-slate-800 text-sm font-medium">
-                  <Check className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-            
-            <div className="mb-8">
-              <p className="text-slate-500 text-sm line-through mb-1">De R$97,00 por apenas</p>
-              <div className="flex items-center justify-center gap-3">
-                <p className="text-5xl font-extrabold text-emerald-600">R$37,00</p>
-                <span className="bg-emerald-200 text-emerald-800 text-xs font-bold px-2 py-1 rounded">61% OFF</span>
-              </div>
-            </div>
-            
-            <CTAButton className="w-full text-lg py-4 shadow-emerald-500/30">
-              CONFIRMAR ACESSO AGORA
+            Atividades prontas, pensadas para engajar todos os alunos — inclusive aqueles com necessidades especiais.
+          </motion.p>
+
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-10 font-sans text-[13px] text-white/80"
+          >
+            <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-light-green" /> Ensino Fundamental I</span>
+            <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-light-green" /> Ensino Fundamental II</span>
+            <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-light-green" /> Ensino Médio</span>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="w-full mb-4"
+          >
+            <CTAButton href="#planos" className="w-full bg-accent text-white hover:bg-[#B84521]">
+              Quero Minhas Dinâmicas Agora →
             </CTAButton>
-            <p className="text-xs text-emerald-700 mt-4 font-medium flex items-center justify-center gap-1">
-              <Star className="w-3 h-3 fill-current text-yellow-500" /> Mais de 80% dos professores escolhem esta opção.
-            </p>
+          </motion.div>
+
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="font-sans text-[12px] text-white/40 mb-16"
+          >
+            🔒 Pagamento 100% seguro · Garantia de 7 dias
+          </motion.p>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="w-full border-t border-white/10 pt-8 grid grid-cols-3 gap-4"
+          >
+            <div className="flex flex-col items-center">
+              <span className="font-serif text-[40px] text-white leading-none mb-1">200+</span>
+              <span className="font-sans text-[10px] text-white/50 uppercase tracking-[0.1em] font-semibold">Dinâmicas</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <span className="font-serif text-[40px] text-white leading-none mb-1">4.9 ★</span>
+              <span className="font-sans text-[10px] text-white/50 uppercase tracking-[0.1em] font-semibold">Avaliação</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <span className="font-serif text-[40px] text-white leading-none mb-1">3.2mil+</span>
+              <span className="font-sans text-[10px] text-white/50 uppercase tracking-[0.1em] font-semibold">Professoras</span>
+            </div>
           </motion.div>
         </div>
-      </Section>
+      </section>
 
-      {/* Testimonials */}
-      <Section className="bg-slate-900 text-center text-white py-20">
-        <div className="inline-flex items-center gap-2 bg-slate-800 text-yellow-400 px-4 py-1.5 rounded-full text-sm font-semibold mb-6">
-          <Star className="w-4 h-4 fill-current" />
-          Mais de 9.435 professores já utilizam
-        </div>
-        <h2 className="text-3xl md:text-4xl font-extrabold mb-12">
-          Veja o Que Professoras <span className="text-emerald-400">Estão Dizendo</span>
-        </h2>
-        
-        <div className="max-w-3xl mx-auto space-y-6">
-          {[
-            { text: "Queria parabenizar pelas dinâmicas, achei incrível, meu 6º ano amou ❤️", align: "justify-start", bg: "bg-slate-800" },
-            { text: "Obg pelo suporte, vocês são muito atenciosos ❤️", align: "justify-start", bg: "bg-slate-800" },
-            { text: "A gente que agradece! 💜", align: "justify-end", bg: "bg-blue-600" }
-          ].map((msg, i) => (
-            <motion.div 
-              key={i}
-              initial={{ opacity: 0, x: msg.align === 'justify-start' ? -20 : 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.2 }}
-              className={`flex ${msg.align}`}
-            >
-              <div className={`max-w-[80%] md:max-w-[60%] p-4 rounded-2xl text-left text-lg ${msg.bg} ${msg.align === 'justify-start' ? 'rounded-tl-sm' : 'rounded-tr-sm'}`}>
-                {msg.text}
+      {/* O Que Você Recebe Section */}
+      <section className="py-[96px] px-[28px] bg-white">
+        <div className="max-w-[800px] mx-auto">
+          <div className="text-center mb-16">
+            <span className="font-sans text-[11px] font-semibold tracking-[0.1em] uppercase text-primary mb-4 block">
+              O QUE VOCÊ RECEBE
+            </span>
+            <h2 className="font-serif text-[38px] font-bold text-primary leading-[1.1]">
+              Material completo para <span className="italic font-normal">transformar suas aulas</span>
+            </h2>
+          </div>
+
+          <div className="flex flex-col gap-[16px]">
+            {/* Featured Card */}
+            <div className="bg-primary rounded-[20px] p-[32px] flex flex-col md:flex-row items-start md:items-center gap-8 relative overflow-hidden">
+              <div className="font-serif text-[80px] text-light-green opacity-30 leading-none shrink-0">
+                200+
               </div>
-            </motion.div>
-          ))}
-        </div>
-        
-        <div className="flex justify-center gap-1 mt-10">
-          {[1,2,3,4,5].map(i => <Star key={i} className="w-6 h-6 text-yellow-400 fill-current" />)}
-        </div>
-      </Section>
+              <div className="flex-grow">
+                <h3 className="font-serif text-[24px] font-semibold text-white mb-2">
+                  Dinâmicas para Inclusão
+                </h3>
+                <p className="font-sans text-[15px] text-white/70 leading-[1.75] mb-6">
+                  Atividades categorizadas por faixa etária, objetivo pedagógico e tipo de necessidade. Prontas para aplicar.
+                </p>
+                <div className="inline-block border border-white/20 text-white font-sans text-[11px] font-semibold px-4 py-1.5 rounded-full uppercase tracking-[0.1em]">
+                  Principal
+                </div>
+              </div>
+            </div>
 
-      {/* Guarantee */}
-      <Section className="bg-slate-50 text-center">
-        <div className="max-w-3xl mx-auto bg-white p-8 md:p-12 rounded-3xl shadow-xl border border-emerald-100 relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-2 bg-emerald-500"></div>
-          <div className="w-20 h-20 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6">
-            <ShieldCheck className="w-10 h-10" />
-          </div>
-          <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
-            Garantia de <span className="text-emerald-500">7 Dias</span>
-          </h2>
-          <p className="text-slate-600 text-lg leading-relaxed mb-8">
-            Você tem <strong>7 dias</strong> para testar todo o material. Se por qualquer motivo você não ficar satisfeita, basta nos enviar uma mensagem e devolvemos <strong>100% do seu dinheiro</strong>. Sem burocracia, sem perguntas.
-          </p>
-          <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-6 py-3 rounded-full font-medium">
-            <Lock className="w-5 h-5" />
-            Compra 100% Segura e Protegida
+            {/* 3 Cards Grid */}
+            <div className="grid md:grid-cols-2 gap-[16px]">
+              {/* Card A */}
+              <div className="bg-white border border-[#E8E8E0] rounded-[16px] p-[24px] md:col-span-2 lg:col-span-1">
+                <div className="w-[44px] h-[44px] bg-surface-green rounded-[12px] flex items-center justify-center mb-6">
+                  <LayoutTemplate className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="font-serif text-[24px] font-semibold text-primary mb-2">
+                  Fichas de Aplicação
+                </h3>
+                <p className="font-sans text-[15px] text-muted leading-[1.75]">
+                  Passo a passo para cada dinâmica, materiais necessários e tempo estimado.
+                </p>
+              </div>
+
+              {/* Card B */}
+              <div className="bg-white border border-[#E8E8E0] rounded-[16px] p-[24px]">
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-[44px] h-[44px] bg-surface-green rounded-[12px] flex items-center justify-center">
+                    <FileText className="w-6 h-6 text-primary" />
+                  </div>
+                  <div className="bg-gold/10 text-gold font-sans text-[11px] font-semibold px-3 py-1 rounded-full uppercase tracking-[0.1em]">
+                    BÔNUS
+                  </div>
+                </div>
+                <h3 className="font-serif text-[24px] font-semibold text-primary mb-2">
+                  Guia de Adaptações por NEE
+                </h3>
+                <p className="font-sans text-[15px] text-muted leading-[1.75]">
+                  Orientações específicas para autismo, TDAH, deficiência visual e intelectual.
+                </p>
+              </div>
+
+              {/* Card C */}
+              <div className="bg-white border border-[#E8E8E0] rounded-[16px] p-[24px]">
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-[44px] h-[44px] bg-surface-green rounded-[12px] flex items-center justify-center">
+                    <Calendar className="w-6 h-6 text-primary" />
+                  </div>
+                  <div className="bg-gold/10 text-gold font-sans text-[11px] font-semibold px-3 py-1 rounded-full uppercase tracking-[0.1em]">
+                    BÔNUS
+                  </div>
+                </div>
+                <h3 className="font-serif text-[24px] font-semibold text-primary mb-2">
+                  Planner Mensal de Dinâmicas
+                </h3>
+                <p className="font-sans text-[15px] text-muted leading-[1.75]">
+                  Organize suas atividades ao longo do mês com um planner prático e visual.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-      </Section>
+      </section>
 
-      {/* Author */}
-      <Section className="bg-white text-center">
-        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-12">
-          Conheça a <span className="text-emerald-500">Professora Marcia Alves</span>
-        </h2>
-        
-        <div className="max-w-2xl mx-auto flex flex-col items-center">
-          <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-emerald-100 shadow-lg mb-6">
+      {/* Pricing Section */}
+      <section id="planos" className="py-[96px] px-[28px] bg-bg">
+        <div className="max-w-[440px] mx-auto">
+          <div className="text-center mb-16">
+            <span className="font-sans text-[11px] font-semibold tracking-[0.1em] uppercase text-muted mb-4 block">
+              ESCOLHA SEU PLANO
+            </span>
+            <h2 className="font-serif text-[38px] font-bold text-primary leading-[1.1]">
+              Investimento que cabe no bolso
+            </h2>
+          </div>
+          
+          <div className="flex flex-col gap-[16px]">
+            {/* Basic Plan */}
+            <div className="bg-white border border-[#DEDAD4] rounded-[20px] p-[32px]">
+              <div className="font-sans text-[12px] font-semibold tracking-[0.1em] uppercase text-muted mb-4">
+                Plano Básico
+              </div>
+              
+              <div className="mb-6">
+                <span className="font-serif text-[52px] font-bold text-primary leading-none">R$ 17,90</span>
+              </div>
+              
+              <div className="h-[1px] bg-[#DEDAD4] w-full mb-6"></div>
+              
+              <ul className="space-y-4 mb-8">
+                {[
+                  '+200 dinâmicas digitais',
+                  'Fichas de aplicação prontas',
+                  'Acesso vitalício ao material'
+                ].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 font-sans text-[14px] text-primary">
+                    <div className="w-[6px] h-[6px] bg-primary shrink-0"></div>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              
+              <CTAButton className="w-full border border-primary text-primary hover:bg-primary/5">
+                Começar com o Básico
+              </CTAButton>
+            </div>
+
+            {/* Premium Plan */}
+            <div className="bg-white border-2 border-primary rounded-[20px] p-[32px] relative mt-4">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white font-sans text-[11px] font-semibold px-4 py-1 rounded-full uppercase tracking-[0.1em] whitespace-nowrap">
+                MAIS POPULAR
+              </div>
+              
+              <div className="font-sans text-[12px] font-semibold tracking-[0.1em] uppercase text-primary mb-4">
+                Planejamento Divertido 2026
+              </div>
+              
+              <div className="mb-6">
+                <span className="font-sans text-[13px] text-muted line-through block mb-1">De R$ 67,00</span>
+                <span className="font-serif text-[60px] font-bold text-primary leading-none">R$ 37,00</span>
+              </div>
+              
+              <div className="h-[1px] bg-[#DEDAD4] w-full mb-6"></div>
+              
+              <ul className="space-y-4 mb-8">
+                <li className="flex items-center gap-3 font-sans text-[14px] text-primary">
+                  <div className="w-[6px] h-[6px] bg-primary shrink-0"></div>
+                  <span>+200 dinâmicas digitais</span>
+                </li>
+                <li className="flex items-center gap-3 font-sans text-[14px] text-primary">
+                  <div className="w-[6px] h-[6px] bg-primary shrink-0"></div>
+                  <span>Fichas de aplicação prontas</span>
+                </li>
+                <li className="flex items-center gap-3 font-sans text-[14px] text-primary">
+                  <div className="w-[6px] h-[6px] bg-primary shrink-0"></div>
+                  <span>Acesso vitalício ao material</span>
+                </li>
+                <li className="flex items-center gap-3 font-sans text-[14px] text-primary">
+                  <div className="w-[6px] h-[6px] bg-primary shrink-0"></div>
+                  <span className="flex items-center gap-2">
+                    Guia de adaptações por NEE
+                    <span className="bg-gold/10 text-gold text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">BÔNUS</span>
+                  </span>
+                </li>
+                <li className="flex items-center gap-3 font-sans text-[14px] text-primary">
+                  <div className="w-[6px] h-[6px] bg-primary shrink-0"></div>
+                  <span className="flex items-center gap-2">
+                    Planner mensal de dinâmicas
+                    <span className="bg-gold/10 text-gold text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">BÔNUS</span>
+                  </span>
+                </li>
+              </ul>
+              
+              <CTAButton className="w-full bg-accent text-white hover:bg-[#B84521] mb-4">
+                Quero o Kit Completo →
+              </CTAButton>
+              <p className="text-center font-sans text-[13px] text-muted">
+                Parcele em até 12x sem juros · Boleto · Pix
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Depoimentos Section */}
+      <section className="py-[96px] px-[28px] bg-primary text-white">
+        <div className="max-w-[540px] mx-auto">
+          <div className="text-center mb-16">
+            <span className="font-sans text-[11px] font-semibold tracking-[0.1em] uppercase text-light-green mb-4 block">
+              O QUE DIZEM AS PROFESSORAS
+            </span>
+            <h2 className="font-serif text-[38px] font-bold leading-[1.1]">
+              Quem usou, não abre mão
+            </h2>
+          </div>
+          
+          <div className="flex flex-col gap-[16px]">
+            {[
+              { 
+                quote: "Usei na semana de acolhimento e os alunos adoraram! Até os mais tímidos participaram ativamente.", 
+                name: "Maria Andrade", 
+                role: "Professora 3º Ano",
+                city: "Fortaleza/CE",
+                initials: "MA",
+                color: "bg-[#52B788]"
+              },
+              { 
+                quote: "Finalmente um material que pensa na inclusão de verdade. As adaptações por NEE fizeram toda diferença.", 
+                name: "Juliana Souza", 
+                role: "Coordenadora Pedagógica",
+                city: "São Paulo/SP",
+                initials: "JS",
+                color: "bg-accent"
+              },
+              { 
+                quote: "Economizei horas de planejamento toda semana. As fichas são claras e práticas.", 
+                name: "Carla Ribeiro", 
+                role: "Educadora Especial",
+                city: "Porto Alegre/RS",
+                initials: "CR",
+                color: "bg-[#7B9E87]"
+              }
+            ].map((test, i) => (
+              <div key={i} className="bg-white/5 border border-white/10 rounded-[18px] p-[28px]">
+                <div className="text-gold text-[14px] tracking-[3px] mb-4">★★★★★</div>
+                <p className="font-sans text-[14px] text-white/80 leading-[1.8] font-italic italic my-[14px]">"{test.quote}"</p>
+                <div className="flex items-center gap-[12px]">
+                  <div className={`w-[42px] h-[42px] rounded-full ${test.color} flex items-center justify-center font-serif font-bold text-[16px] text-white`}>
+                    {test.initials}
+                  </div>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="font-sans text-[14px] font-semibold text-white">{test.name}</span>
+                    <span className="text-white/40">·</span>
+                    <span className="font-sans text-[12px] text-white/45">{test.role} · {test.city}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Conheça a Professora Section */}
+      <section className="py-[96px] px-[28px] bg-white">
+        <div className="max-w-[480px] mx-auto text-center flex flex-col items-center">
+          <span className="font-sans text-[11px] font-semibold tracking-[0.1em] uppercase text-muted mb-8 block">
+            QUEM CRIOU ESSE MATERIAL
+          </span>
+          
+          <div className="w-[90px] h-[90px] rounded-full overflow-hidden border-[3px] border-primary mb-6">
             <img 
               src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400" 
               alt="Professora Marcia Alves" 
               className="w-full h-full object-cover"
             />
           </div>
-          <h3 className="text-xl font-bold text-slate-900 mb-4">Professora Marcia Alves</h3>
-          <p className="text-slate-600 text-lg leading-relaxed mb-8">
-            Esposa, mãe e professora. Com mais de 15 anos em sala de aula, desenvolveu o método das Dinâmicas de Matemática para ajudar professoras a terem aulas mais leves e participativas.
+          
+          <h2 className="font-serif text-[28px] font-bold text-primary mb-3">
+            Professora Marcia Alves
+          </h2>
+          
+          <div className="bg-primary text-white font-sans text-[11px] font-semibold px-4 py-1.5 rounded-full mb-6">
+            Educadora Especialista em Inclusão
+          </div>
+          
+          <p className="font-sans text-[14px] text-muted leading-[1.75] mb-8">
+            Com mais de 15 anos em sala de aula, desenvolveu o método das Dinâmicas de Inclusão para ajudar professoras a terem aulas mais leves e participativas.
           </p>
           
-          <div className="flex flex-wrap justify-center gap-4">
-            <div className="flex items-center gap-2 bg-slate-50 text-slate-700 px-4 py-2 rounded-full text-sm font-medium border border-slate-200">
-              <Star className="w-4 h-4 text-emerald-500" /> 15+ anos de experiência
+          <div className="flex flex-wrap justify-center gap-3">
+            <div className="bg-bg text-primary font-sans text-[12px] font-semibold px-4 py-2 rounded-full">
+              7 anos de experiência
             </div>
-            <div className="flex items-center gap-2 bg-slate-50 text-slate-700 px-4 py-2 rounded-full text-sm font-medium border border-slate-200">
-              <Users className="w-4 h-4 text-emerald-500" /> Mais de 9.000 professores treinados
+            <div className="bg-bg text-primary font-sans text-[12px] font-semibold px-4 py-2 rounded-full">
+              3.200+ professoras atendidas
             </div>
           </div>
         </div>
-      </Section>
+      </section>
 
-      {/* Piracy Warning */}
-      <Section className="bg-slate-50 py-12">
-        <div className="max-w-3xl mx-auto flex items-start gap-4 bg-red-50 border border-red-200 p-6 rounded-2xl">
-          <AlertTriangle className="w-8 h-8 text-red-500 shrink-0 mt-1" />
-          <div>
-            <h4 className="font-bold text-red-800 mb-2">PIRATARIA É CRIME</h4>
-            <p className="text-red-700 text-sm">
-              A reprodução, distribuição ou compartilhamento não autorizado deste material é crime previsto na Lei 9.610/98 e pode resultar em penalidades de até 4 anos de prisão e multa.
+      {/* Garantia Section */}
+      <section className="py-[96px] px-[28px] bg-surface-green">
+        <div className="max-w-[500px] mx-auto bg-white rounded-[20px] p-[48px] text-center relative overflow-hidden">
+          <div className="absolute top-4 left-1/2 -translate-x-1/2 font-serif text-[120px] text-primary opacity-5 leading-none select-none pointer-events-none">
+            7
+          </div>
+          <div className="relative z-10">
+            <div className="w-16 h-16 mx-auto bg-surface-green rounded-full flex items-center justify-center mb-6">
+              <Shield className="w-8 h-8 text-primary" />
+            </div>
+            <h3 className="font-serif text-[24px] font-semibold text-primary mb-4">
+              Garantia Incondicional de 7 Dias
+            </h3>
+            <p className="font-sans text-[14px] text-muted leading-[1.75] mb-8">
+              Se você não ficar 100% satisfeita com o material, devolvemos todo o seu dinheiro. Sem perguntas, sem burocracia. Sua confiança vale mais do que qualquer venda.
             </p>
+            <div className="inline-block border border-primary text-primary font-sans text-[11px] font-semibold px-4 py-1.5 rounded-full uppercase tracking-[0.1em]">
+              Compra 100% Segura
+            </div>
           </div>
         </div>
-      </Section>
+      </section>
 
-      {/* FAQ */}
-      <Section className="bg-white max-w-3xl mx-auto">
-        <h2 className="text-3xl font-extrabold text-slate-900 text-center mb-10">
-          PERGUNTAS <span className="text-blue-600">FREQUENTES</span>
-        </h2>
-        
-        <div className="space-y-2">
-          <FAQItem 
-            question="Para quais séries essas dinâmicas são indicadas?" 
-            answer="As dinâmicas são perfeitamente adaptáveis para o Ensino Fundamental I, Fundamental II e Ensino Médio. Você receberá instruções de como aplicar em cada nível." 
-          />
-          <FAQItem 
-            question="Posso usar em qualquer escola?" 
-            answer="Sim! O material foi desenvolvido para funcionar em escolas públicas e particulares, com turmas grandes ou pequenas, e requer poucos ou nenhum recurso financeiro para aplicação." 
-          />
-          <FAQItem 
-            question="E se eu não gostar, posso pedir reembolso?" 
-            answer="Com certeza. Você tem 7 dias de garantia incondicional. Se achar que o material não é para você, basta solicitar o reembolso e devolveremos 100% do valor." 
-          />
-          <FAQItem 
-            question="Como recebo o material após a compra?" 
-            answer="O acesso é imediato! Assim que o pagamento for confirmado, você receberá todo o material diretamente no seu WhatsApp e também no e-mail cadastrado." 
-          />
-          <FAQItem 
-            question="O acesso é vitalício?" 
-            answer="Sim! Você paga apenas uma vez e tem acesso para sempre ao material, incluindo todas as futuras atualizações." 
-          />
-        </div>
-      </Section>
-
-      {/* Footer CTA */}
-      <Section className="bg-slate-50 text-center pb-12">
-        <div className="max-w-2xl mx-auto mb-10">
-           <div className="w-16 h-16 bg-emerald-100 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
-            <ShieldCheck className="w-8 h-8" />
+      {/* FAQ Section */}
+      <section className="py-[96px] px-[28px] bg-bg">
+        <div className="max-w-[600px] mx-auto">
+          <div className="text-center mb-12">
+            <span className="font-sans text-[11px] font-semibold tracking-[0.1em] uppercase text-muted mb-4 block">
+              PERGUNTAS FREQUENTES
+            </span>
+            <h2 className="font-serif text-[38px] font-bold text-primary leading-[1.1]">
+              Perguntas Frequentes
+            </h2>
           </div>
-          <h3 className="text-xl font-bold text-slate-900 mb-2">Garantia de 7 Dias</h3>
-          <p className="text-slate-600 text-sm mb-4">
-            Você tem 7 dias para testar todo o material. Se por qualquer motivo você não ficar satisfeita, basta nos enviar uma mensagem e devolvemos 100% do seu dinheiro.
+          
+          <div className="border-t border-[#E0DDD8]">
+            <FAQItem 
+              question="Para quem é esse kit?" 
+              answer="Para professores da educação básica, coordenadores pedagógicos e educadores que buscam tornar suas aulas mais inclusivas e engajadoras." 
+            />
+            <FAQItem 
+              question="Como recebo após a compra?" 
+              answer="O acesso é enviado imediatamente para o seu e-mail e WhatsApp logo após a confirmação do pagamento." 
+            />
+            <FAQItem 
+              question="Para qual faixa etária funciona melhor?" 
+              answer="As dinâmicas são adaptáveis e cobrem desde a educação infantil até o ensino médio, com instruções de como ajustar a linguagem." 
+            />
+            <FAQItem 
+              question="Preciso instalar algum programa?" 
+              answer="Não. Todo o material é entregue em formato PDF, pronto para ser lido no celular, tablet, computador ou impresso." 
+            />
+            <FAQItem 
+              question="Posso compartilhar com colegas da escola?" 
+              answer="O acesso é individual. A reprodução ou compartilhamento não autorizado deste material é crime previsto na Lei 9.610/98." 
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Footer CTA Section */}
+      <section className="py-[80px] px-[28px] bg-accent text-white text-center">
+        <div className="max-w-[600px] mx-auto">
+          <h2 className="font-serif italic text-[44px] font-bold mb-4 leading-[1.1]">
+            Pronta para transformar suas aulas?
+          </h2>
+          <p className="font-sans text-[15px] mb-10 text-white/80">
+            Mais de 3.200 professoras já estão usando esse material.
           </p>
-          <div className="flex items-center justify-center gap-1 text-emerald-600 text-sm font-medium">
-            <Lock className="w-4 h-4" /> Compra 100% Segura e Protegida
-          </div>
+          <CTAButton className="bg-white text-accent hover:bg-bg mb-6">
+            Quero o Kit Agora
+          </CTAButton>
+          <p className="font-sans text-[12px] text-white/50">
+            🔒 Pagamento seguro · Acesso imediato · Garantia de 7 dias
+          </p>
         </div>
-        
-        <CTAButton className="w-full md:w-auto px-10 py-5 text-xl mb-16">
-          EU QUERO MINHAS DINÂMICAS PRONTAS!
-        </CTAButton>
-        
-        <div className="border-t border-slate-200 pt-8 text-slate-400 text-sm">
-          <p>© 2026 Dinâmicas de Matemática. Todos os direitos reservados.</p>
-          <p className="mt-2 text-xs">Este site não é afiliado ao Facebook, Google ou qualquer entidade do Meta/Alphabet.</p>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-primary text-white py-12 px-[28px] text-center">
+        <div className="font-serif italic text-[24px] font-bold mb-6">
+          Dinâmicas Inclusivas
         </div>
-      </Section>
+        <div className="flex justify-center gap-6 font-sans text-[13px] text-white/60 mb-8">
+          <a href="#" className="hover:text-white transition-colors">Termos de Uso</a>
+          <a href="#" className="hover:text-white transition-colors">Política de Privacidade</a>
+          <a href="#" className="hover:text-white transition-colors">Contato</a>
+        </div>
+        <p className="font-sans text-[12px] text-white/40">
+          © 2026 Dinâmicas Inclusivas. Todos os direitos reservados.
+        </p>
+      </footer>
+      
     </div>
   );
 }

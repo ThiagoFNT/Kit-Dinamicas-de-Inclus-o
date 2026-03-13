@@ -1,1 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
 @import "tailwindcss";
+
+@theme {
+  --color-bg: #F7F4EF;
+  --color-primary: #1A3C2E;
+  --color-accent: #D4522A;
+  --color-surface-green: #E8F5EE;
+  --color-surface-peach: #FDF0E8;
+  --color-muted: #6B7A6F;
+  --color-white: #FFFFFF;
+  --color-gold: #C9962A;
+  --color-light-green: #A8D8B9;
+  
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+  --font-serif: "Cormorant Garamond", serif;
+}
