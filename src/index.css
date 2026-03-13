@@ -1,32 +1,58 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,800;1,400;1,600;1,800&family=Quicksand:wght@500;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #F7F4EF;
-  --color-primary: #1A3C2E;
-  --color-accent: #D4522A;
-  --color-surface-green: #E8F5EE;
-  --color-surface-green-medium: #E8F2EC;
-  --color-surface-peach: #FDF0E8;
-  --color-muted: #6B7A6F;
   --color-white: #FFFFFF;
-  --color-gold: #C9962A;
-  --color-light-green: #A8D8B9;
-  
-  --font-sans: "Plus Jakarta Sans", sans-serif;
-  --font-serif: "Cormorant Garamond", serif;
+  --color-off-white: #F9F9F9;
+  --color-bg-section: #F4F6F4;
+  --color-ink: #1E2A1E;
+  --color-ink-soft: #4A5C4A;
+  --color-ink-muted: #7A8C7A;
+
+  --color-green: #2E7D52;
+  --color-green-mid: #43A573;
+  --color-green-light: #C8EDD9;
+  --color-green-wash: #EBF7F0;
+
+  --color-coral: #E8572A;
+  --color-coral-light: #FDEEE8;
+  --color-coral-pale: #FFF3EF;
+
+  --color-yellow: #F5C842;
+  --color-yellow-light: #FFF8DC;
+  --color-yellow-pale: #FFFBEE;
+
+  --color-lilac: #9B7FD4;
+  --color-lilac-light: #EDE8F9;
+  --color-lilac-pale: #F5F2FD;
+
+  --font-sans: "Nunito", sans-serif;
+  --font-display: "Quicksand", sans-serif;
 }
 
 @layer utilities {
-  .bg-noise {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  }
   .card-shadow {
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06), 0 24px 48px rgba(0,0,0,0.04);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05), 0 8px 32px rgba(0,0,0,0.07);
   }
-  .glass-card {
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.12);
-    backdrop-filter: blur(12px);
-  }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatBlob {
+  0% { transform: translateY(-12px); }
+  100% { transform: translateY(12px); }
+}
+
+.reveal { opacity: 0; }
+.reveal.visible { animation: fadeUp 0.65s cubic-bezier(0.34,1.2,0.64,1) forwards; }
+
+.blob-float {
+  animation: floatBlob 6s infinite alternate ease-in-out;
+}
+
+html {
+  scroll-behavior: smooth;
 }
